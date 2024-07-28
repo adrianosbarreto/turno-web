@@ -1,5 +1,5 @@
 <template>
-  <v-list-item class="transaction-item">
+  <v-list-item class="transaction-item" :style="itemStyle">
     <template v-slot:title>
       <span class="transaction-title">
         {{ props.transaction.description }}
@@ -13,24 +13,27 @@
     <template v-slot:append>
       <slot class="transaction-button" name="button"></slot>
     </template>
-
   </v-list-item>
 
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import {computed, defineProps} from 'vue';
 import { Transaction } from "@/types/Transaction";
 
 const props = defineProps<{
   transaction: Transaction;
+  color?: string;
 }>();
+
+const itemStyle = computed(() => ({
+  backgroundColor: props.color || '#ffffff',
+}));
 
 </script>
 
 
 <style scoped lang="scss">
-
 .transaction {
 
   &-item {
@@ -39,7 +42,6 @@ const props = defineProps<{
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #E0E0E0;
   }
 
   &-title {

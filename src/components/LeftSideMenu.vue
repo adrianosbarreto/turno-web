@@ -14,19 +14,19 @@
               <template #prepend>
                 <v-icon :icon="menuItem.icon"/>
               </template>
-              <v-list-item-title class="text-xxs text-uppercase text-white">
+              <v-list-item-title class="item-menu-text text-uppercase ">
                 {{ menuItem.text }}
               </v-list-item-title>
             </v-list-item>
           </v-list>
-<!--          <v-list-item class="px-6" link @click="logout">&ndash;&gt;-->
-            <!--              <template #prepend>-->
-            <!--                <v-icon :icon="mdiLogout" />-->
-            <!--              </template>-->
-            <!--              <v-list-item-title class="text-xxs text-uppercase text-white">-->
-            <!--                Logout-->
-            <!--              </v-list-item-title>-->
-            <!--            </v-list-item>-->
+          <v-list-item class="px-6" link @click="logout">
+            <template #prepend>
+              <v-icon icon="mdi mdi-home" />
+            </template>
+            <v-list-item-title class="item-menu-text text-uppercase ">
+              Logout
+            </v-list-item-title>
+          </v-list-item>
         </div>
     </div>
 </template>
@@ -47,6 +47,13 @@ const router = useRouter();
 const leftSideMenuStore = useLeftSideMenuStore();
 
 const menuConfig : menuItem[] = configs.sideMenuConfig;
+
+function logout() {
+  // auth.logout({
+  //   makeRequest: true,
+  //   redirect: { name: 'login' }
+  // })
+}
 
 function toggleMenu() {
   leftSideMenuStore.toggleCollapse();
@@ -90,6 +97,17 @@ function navigateTo(route: string) {
 .menu-list{
   background-color: #2799FB;
   color: #FFFFFF;
+
+  font-size: 0.8rem;
+}
+
+.item-menu-text{
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+:deep(.v-list-item__spacer){
+  width: 16px;
 }
 
 </style>

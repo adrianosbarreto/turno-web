@@ -1,6 +1,5 @@
 <template>
-  <v-btn class="transaction-button" variant="flat"
-         color="white">
+  <v-btn class="transaction-button" variant="flat" :style="itemStyle">
     <div class="d-flex flex-column align-center justify-center">
       <v-icon size="30" color="#2799FB">mdi-plus</v-icon>
       <span class="btn-text">
@@ -12,6 +11,8 @@
 
 <script setup lang="ts">
 
+  import {computed} from "vue";
+
   interface AddButton {
     icon : string;
     color : string;
@@ -20,6 +21,10 @@
   }
 
   const props = defineProps<Partial<AddButton>>();
+
+  const itemStyle = computed(() => ({
+    backgroundColor: props.color || '#ffffff',
+  }));
 
 </script>
 

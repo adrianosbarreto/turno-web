@@ -194,14 +194,14 @@ const monthYear = [
             <FilterByMonthYear :items="monthYear" />
           </template>
         </BalanceResumeItem>
-        <CardResumeTransaction :transaction="incomes">
+        <CardResumeTransaction :transaction="incomes" color="#daefff">
           <template v-slot:button>
-            <TransactionAddButton text="Deposit a check"/>
+            <TransactionAddButton text="Deposit a check" color="#daefff"/>
           </template>
         </CardResumeTransaction>
-        <CardResumeTransaction :transaction="expenses">
+        <CardResumeTransaction :transaction="expenses" color="#f1f9fe">
           <template v-slot:button>
-            <TransactionAddButton text="Purchase"/>
+            <TransactionAddButton text="Purchase" color="#f1f9fe"/>
           </template>
         </CardResumeTransaction>
         <v-container class="py-5 pb-0">

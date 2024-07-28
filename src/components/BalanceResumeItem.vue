@@ -38,7 +38,6 @@ const props = defineProps<{
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #E0E0E0;
   }
 
   &-title {
