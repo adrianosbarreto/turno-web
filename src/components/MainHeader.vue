@@ -1,7 +1,9 @@
 <template>
   <v-container class="header pa-0 ma-0">
     <div class="menu">
-        <v-icon>
+        <v-icon
+          @click="toggleMenu"
+        >
           mdi-menu
         </v-icon>
     </div>
@@ -40,4 +42,15 @@
 
 </style>
 <script setup lang="ts">
+  import { useLeftSideMenuStore } from "@/store/LeftSideMenuStore";
+
+  const leftSideMenustore = useLeftSideMenuStore();
+
+  function toggleMenu() {
+    leftSideMenustore.toggleCollapse();
+  }
+
+
+
+
 </script>

@@ -183,8 +183,6 @@ const monthYear = [
   {title: 'December, 2024'}
 ];
 
-
-console.log(data);
 </script>
 
 <template>

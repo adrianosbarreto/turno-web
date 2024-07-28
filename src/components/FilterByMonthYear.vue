@@ -46,4 +46,10 @@ import {ref, watch} from "vue";
   :deep(.v-field__outline) {
     display: none;
   }
+
+  :deep(.v-select__selection-text){
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
 </style>
