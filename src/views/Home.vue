@@ -3,6 +3,9 @@
 import ListTransactable from "@/components/TransactableList.vue";
 import {Transaction} from "@/types/Transaction";
 import CardResumeTransaction from "@/components/TransactionResumeItem.vue";
+import TransactionAddButton from "@/components/TransactionAddButton.vue";
+import BalanceResumeItem from "@/components/BalanceResumeItem.vue";
+import FilterByMonthYear from "@/components/FilterByMonthYear.vue";
 
 
 const data: Transaction[] = [
@@ -173,6 +176,14 @@ const expenses : Transaction = {
 
 }
 
+
+const monthYear = [
+  {title: 'August, 2024'},
+  {title: 'November, 2024'},
+  {title: 'December, 2024'}
+];
+
+
 console.log(data);
 </script>
 
@@ -180,8 +191,28 @@ console.log(data);
   <v-container class="pa-0 ma-0 h-100" >
     <v-row class="h-100">
       <v-col class="h-100">
-        <CardResumeTransaction :transaction="incomes"/>
-        <CardResumeTransaction :transaction="expenses"/>
+        <BalanceResumeItem :transaction="incomes">
+          <template v-slot:button>
+            <FilterByMonthYear :items="monthYear" />
+          </template>
+        </BalanceResumeItem>
+        <CardResumeTransaction :transaction="incomes">
+          <template v-slot:button>
+            <TransactionAddButton text="Deposit a check"/>
+          </template>
+        </CardResumeTransaction>
+        <CardResumeTransaction :transaction="expenses">
+          <template v-slot:button>
+            <TransactionAddButton text="Purchase"/>
+          </template>
+        </CardResumeTransaction>
+        <v-container class="py-5 pb-0">
+          <v-row>
+            <v-col >
+              <span class="text-uppercase my-5 text-primary font-weight-medium">Transactions</span>
+            </v-col>
+          </v-row>
+        </v-container>
         <ListTransactable :transactions="data" />
       </v-col>
     </v-row>

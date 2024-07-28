@@ -7,7 +7,7 @@
       </template>
       <template v-slot:subtitle>
         <span class="transaction-subtitle">
-          ${{ formatDateTime(props.transaction.date) || '' }}
+          {{ formatDateTime(props.transaction.date) || '' }}
         </span>
       </template>
       <template v-slot:append>

@@ -56,7 +56,7 @@
   import { reactive } from 'vue';
   import { useVuelidate } from '@vuelidate/core';
   import { email, required } from '@vuelidate/validators';
-  import CustomRoundedTextField from '@/components/custom/CustomRoundedTextField.vue';
+  import CustomRoundedTextField from '@/components/CustomRoundedTextField.vue';
 
   const initialState = {
     name: '',

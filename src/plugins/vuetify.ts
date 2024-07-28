@@ -11,7 +11,7 @@ import { VBtn } from 'vuetify/components';
 
 import { createVuetify } from 'vuetify'
 
-import CustomRoundedTextField from '@/components/custom/CustomRoundedTextField.vue';
+import CustomRoundedTextField from '@/components/CustomRoundedTextField.vue';
 export default createVuetify({
   components: {
     VBtn,

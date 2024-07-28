@@ -11,11 +11,9 @@
       </span>
     </template>
     <template v-slot:append>
-      <slot class="transaction-button" name="button"></slot>
+      <slot class="filter" name="button"></slot>
     </template>
-
   </v-list-item>
-
 </template>
 
 <script setup lang="ts">
@@ -34,7 +32,8 @@ const props = defineProps<{
 .transaction {
 
   &-item {
-    color: #2184d9;
+    background-color: #BDE0FE;
+    color: #FFFFFF;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,14 +42,14 @@ const props = defineProps<{
   }
 
   &-title {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 700;
   }
 
   &-subtitle {
-    color: #0177dc;
+    color: #FFFFFF;
     margin-top: 0.9rem;
-    font-size: 1.2rem !important;
+    font-size: 1.5rem !important;
     font-weight: 700;
   }
 }
