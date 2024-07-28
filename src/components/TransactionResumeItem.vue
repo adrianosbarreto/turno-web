@@ -19,8 +19,6 @@
 import { defineProps } from 'vue';
 import { Transaction } from "@/types/Transaction";
 
-import formatDateTime from "@/util/DateFormat";
-
 const props = defineProps<{
   transaction: Transaction;
 }>();
