@@ -2,6 +2,7 @@
 
 import ListTransactable from "@/components/TransactableList.vue";
 import {Transaction} from "@/types/Transaction";
+import CardResumeTransaction from "@/components/TransactionResumeItem.vue";
 
 
 const data: Transaction[] = [
@@ -151,6 +152,27 @@ const data: Transaction[] = [
   }
 ]
 
+const incomes : Transaction = {
+  "id": 1,
+  "amount": 2350.75,
+  "description": "Incomes",
+  "date": "2024-07-25T10:20:30Z",
+  "type": "expense",
+  "createdAt": "2024-07-25T10:20:30Z",
+  "updatedAt": "2024-07-25T10:20:30Z"
+}
+
+const expenses : Transaction = {
+  "id": 1,
+  "amount": 250.75,
+  "description": "Expenses",
+  "date": "2024-07-25T10:20:30Z",
+  "type": "expense",
+  "createdAt": "2024-07-25T10:20:30Z",
+  "updatedAt": "2024-07-25T10:20:30Z"
+
+}
+
 console.log(data);
 </script>
 
@@ -158,6 +180,8 @@ console.log(data);
   <v-container class="pa-0 ma-0 h-100" >
     <v-row class="h-100">
       <v-col class="h-100">
+        <CardResumeTransaction :transaction="incomes"/>
+        <CardResumeTransaction :transaction="expenses"/>
         <ListTransactable :transactions="data" />
       </v-col>
     </v-row>

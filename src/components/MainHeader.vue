@@ -1,34 +1,43 @@
 <template>
   <v-container class="header pa-0 ma-0">
+    <div class="menu">
+        <v-icon>
+          mdi-menu
+        </v-icon>
+    </div>
+
     <h1 class="text-header">BNB Bank</h1>
   </v-container>
 </template>
 
-<script setup lang="ts">
-
-</script>
-
 <style scoped lang="scss">
 
-
-
   .header {
-    background-color: #2799FB;
+    background-color: #BDE0FE;
     color: white;
     padding: 2rem;
     display: flex;
     justify-content: center;
-    align-items: end;
-    height: 25vh;
+    align-items: center;
+    height: 4.5rem; //36px
+    position: relative;
 
+    .menu{
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
     .text-header {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       font-weight: 300;
-      color: azure;
-      margin: 1.5rem;
+      color: #FFFFFF;
       text-align: center;
+      width: 100vw;
     }
   }
 
 </style>
+<script setup lang="ts">
+</script>

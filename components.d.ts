@@ -7,11 +7,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CardResumeTransaction: typeof import('./src/components/CardResumeTransaction.vue')['default']
     CustomRoundedTextField: typeof import('./src/components/custom/CustomRoundedTextField.vue')['default']
     FormLogin: typeof import('./src/components/FormLogin.vue')['default']
     FormSignUp: typeof import('./src/components/FormSignUp.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     HeaderLogin: typeof import('./src/components/HeaderLogin.vue')['default']
+    LeftSideMenu: typeof import('./src/components/LeftSideMenu.vue')['default']
     ListTransactable: typeof import('./src/components/ListTransactable.vue')['default']
     ListTransaction: typeof import('./src/components/ListTransaction.vue')['default']
     LoginForm: typeof import('./src/components/LoginForm.vue')['default']
@@ -23,6 +25,7 @@ declare module 'vue' {
     Transactable: typeof import('./src/components/Transactable.vue')['default']
     TransactableItem: typeof import('./src/components/TransactableItem.vue')['default']
     TransactableList: typeof import('./src/components/TransactableList.vue')['default']
+    TransactionResumeItem: typeof import('./src/components/TransactionResumeItem.vue')['default']
     UnauthenticatedHeader: typeof import('./src/components/UnauthenticatedHeader.vue')['default']
   }
 }
