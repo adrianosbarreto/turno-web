@@ -21,6 +21,15 @@ export default createVuetify({
     VBtn: {
       elevation: 0,
       style:{
+        // backgroundColor: '#2799FB',
+        color: '#fff',
+        height: '3rem',
+        fontSize: '0.7rem',
+      }
+    },
+    VSecondary: {
+      elevation: 0,
+      style:{
         backgroundColor: '#2799FB',
         color: '#fff',
         height: '3rem',

@@ -104,10 +104,12 @@ function navigateTo(route: string) {
 .item-menu-text{
   font-size: 0.8rem;
   font-weight: 600;
+  padding-left: 16px;
 }
 
 :deep(.v-list-item__spacer){
   width: 16px;
+  display: none;
 }
 
 </style>

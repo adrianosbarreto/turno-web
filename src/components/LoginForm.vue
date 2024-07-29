@@ -22,7 +22,7 @@
           </div>
           <div class="d-flex">
             <v-btn
-              class="me-4 w-100"
+              class="sign me-4 w-100"
               @click="v$.$validate"
             >
               sign in
@@ -85,6 +85,11 @@
     width: 20px;
     margin: 1rem 0;
     border-bottom: 3px solid #BDE0FE;
+  }
+
+  .sign{
+    background-color: #2799FB;
+    color: white;
   }
 
   .login{

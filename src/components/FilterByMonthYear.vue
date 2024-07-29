@@ -19,13 +19,13 @@ import {ref, watch} from "vue";
 
   interface Data {
     items: ItemData[];
+    fontSize: string;
   }
 
   const props = defineProps<Partial<Data>>();
 
   const selected = ref<string | null>(null);
 
-  // Watch props.items and set the first item as the selected value when it changes
   watch(
     () => props.items,
     (newItems) => {

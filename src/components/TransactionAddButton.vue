@@ -1,7 +1,7 @@
 <template>
-  <v-btn class="transaction-button" variant="flat" :style="itemStyle">
+  <v-btn class="transaction-button" variant="flat" :style="itemStyle" @click="props.action">
     <div class="d-flex flex-column align-center justify-center">
-      <v-icon size="30" color="#2799FB">mdi-plus</v-icon>
+      <v-icon size="30" color="#0177DC">mdi-plus</v-icon>
       <span class="btn-text">
         {{ props.text}}
       </span>
@@ -18,6 +18,7 @@
     color : string;
     variant : string;
     text : string;
+    action : () => void | Promise<void>;
   }
 
   const props = defineProps<Partial<AddButton>>();
@@ -36,6 +37,6 @@
 
   .btn-text{
     font-size: 0.8rem;
-    color: #2799FB;
+    color: #0177DC;
   }
 </style>

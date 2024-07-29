@@ -29,6 +29,8 @@ declare module 'vue' {
     TransactableList: typeof import('./src/components/TransactableList.vue')['default']
     TransactionAddButton: typeof import('./src/components/TransactionAddButton.vue')['default']
     TransactionResumeItem: typeof import('./src/components/TransactionResumeItem.vue')['default']
+    TransactionRoudedAddButton: typeof import('./src/components/TransactionRoudedAddButton.vue')['default']
+    TransactionRoundedAddButton: typeof import('./src/components/TransactionRoundedAddButton.vue')['default']
     TransctionAddButton: typeof import('./src/components/TransctionAddButton.vue')['default']
     UnauthenticatedHeader: typeof import('./src/components/UnauthenticatedHeader.vue')['default']
   }

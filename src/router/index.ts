@@ -9,9 +9,11 @@ import { createRouter, createWebHistory } from 'vue-router';
 import SignUp from '@/views/SignUp.vue';
 import Login from '@/views/Login.vue';
 import Home from "@/views/Home.vue";
-// import About from '@/pages/About.vue';
-// import UsersIndex from '@/pages/users/Index.vue';
-// import UsersProfile from '@/pages/users/Profile.vue';
+import Expenses from "@/views/Expenses.vue";
+import Checks from "@/views/Checks.vue";
+import CheckControl from "@/views/admin/CheckControl.vue";
+import CreatePurchase from "@/views/CreatePurchase.vue";
+
 
 const routes = [
   {
@@ -28,7 +30,34 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/expenses',
+    name: 'Expenses',
+    component: Expenses,
+  },
+  {
+    path: '/expenses/new',
+    name: 'NewExpenses',
+    component: CreatePurchase,
+  },
+  {
+    path: '/checks',
+    name: 'Checks',
+    component: Checks,
+  },
+  {
+    path: '/incomes',
+    name: 'incomes',
+    component: Checks,
+  },
+  {
+    path: '/admin',
+    name: 'CheckControl',
+    component: CheckControl,
   }
+
+
   // {
   //   path: '/about',
   //   name: 'About',
