@@ -13,14 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from "vue";
+  import {ref, watch} from "vue";
   import {storeToRefs} from "pinia";
-  import useTransactionStore from "@/store/TransactionStore";
   import {getLast12Months} from "@/util/DateFormat";
+  import useTransactionStore from "@/store/TransactionStore";
 
-  const transactionStore = useTransactionStore();
-
-  const { month, year } = storeToRefs(transactionStore);
 
   interface ItemData {
     monthNumber: number,
@@ -28,30 +25,40 @@ import {ref, watch} from "vue";
     year: number,
   }
 
-  // interface Data {
-  //   fontSize: string;
-  // }
+  const transactionStore = useTransactionStore();
 
-  // const props = defineProps<Partial<Data>>();
+  const { month, year } = storeToRefs(transactionStore);
 
   const items : ItemData[] = getLast12Months();
 
   const selected = ref<ItemData>(items[0]);
 
-watch(
-  () => selected.value,
-  (newItem) => {
-    if (newItem) {
-      console.log(newItem)
+  const props = defineProps<{
+    type: string
+  }>();
 
-      month.value = newItem.monthNumber;
-      year.value = newItem.year;
+  watch(
+    () => selected.value,
+    (newItem) => {
+      if (newItem) {
 
-      transactionStore.fetchTransactions(4);
-    }
-  },
-  { immediate: true }
-);
+        month.value = newItem.monthNumber;
+        year.value = newItem.year;
+
+        if(props.type === 'expense'){
+          transactionStore.fetchExpenses(4, 'expense');
+        } else if(props.type === 'income'){
+          transactionStore.fetchIncomes(4, 'income');
+        } else if(props.type === 'all'){
+          transactionStore.fetchTransactions(4);
+        } else if(props.type == 'check'){
+          transactionStore.fetchChecks(4);
+        }
+
+      }
+    },
+    { immediate: true }
+  );
 
 
 </script>

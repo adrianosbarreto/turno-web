@@ -1,16 +1,62 @@
 <template>
-  <v-container class="header pa-0 ma-0">
+  <v-container class="header pa-0 ma-0" :style="{'background-color':currentHeaderConfig.config.background}">
     <div class="menu">
         <v-icon
           @click="toggleMenu"
+          :color="currentHeaderConfig.config.color"
         >
           mdi-menu
         </v-icon>
     </div>
-
-    <h1 class="text-header">BNB Bank</h1>
+    <h1 :class="[currentHeaderConfig.title == title ? 'text-header' : 'text-header-secondary']">
+      {{currentHeaderConfig.title}}
+    </h1>
   </v-container>
 </template>
+
+<script setup lang="ts">
+import { useLeftSideMenuStore } from "@/store/LeftSideMenuStore";
+import {ref, watch} from "vue";
+import {useRoute} from "vue-router";
+import configs from "@/configs";
+
+const leftSideMenustore = useLeftSideMenuStore();
+
+const route = useRoute();
+
+const title = 'BNB Bank'
+
+const initialAppHeaderConfig = {
+  title: title,
+  config: configs.headerConfig['default']
+};
+
+const currentHeaderConfig = ref(initialAppHeaderConfig);
+
+
+function toggleMenu() {
+  leftSideMenustore.toggleCollapse();
+}
+
+watch(() => route.name,
+  (currentRouteName) => {
+    console.log(currentRouteName);
+
+    if(typeof currentRouteName === 'string'){
+      if (currentRouteName.toLowerCase() === 'home') {
+        currentHeaderConfig.value.config = configs.headerConfig['default'];
+        currentHeaderConfig.value.title = title;
+      } else {
+        currentHeaderConfig.value.config = configs.headerConfig['secondary'];
+        currentHeaderConfig.value.title = currentRouteName;
+      }
+    }
+
+
+    console.log(currentHeaderConfig);
+  });
+
+</script>
 
 <style scoped lang="scss">
 
@@ -37,20 +83,14 @@
       color: #FFFFFF;
       text-align: center;
       width: 100vw;
+
+      &-secondary {
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #2799FB;
+      }
     }
   }
-
 </style>
-<script setup lang="ts">
-  import { useLeftSideMenuStore } from "@/store/LeftSideMenuStore";
 
-  const leftSideMenustore = useLeftSideMenuStore();
-
-  function toggleMenu() {
-    leftSideMenustore.toggleCollapse();
-  }
-
-
-
-
-</script>

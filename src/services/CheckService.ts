@@ -2,7 +2,7 @@
 import axios from "@/plugins/axios";
 import Check from "@/types/Check";
 
-export function getChecks(account_id : string,  month: number, year: number): Promise<any> {
+export function getChecks(account_id : number,  month: number, year: number): Promise<any> {
   return axios.post(`/checks/month-year-filter?account_id=${account_id}&month=${month}&year=${year}`);
 }
 

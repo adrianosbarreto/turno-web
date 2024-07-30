@@ -4,7 +4,7 @@
       <v-col class="h-100">
         <BalanceResumeItem :card-resume="balance">
           <template v-slot:button>
-            <FilterByMonthYear :items="monthYear" />
+            <FilterByMonthYear type="all"/>
           </template>
         </BalanceResumeItem>
         <CardResumeTransaction :card-resume="incomes" color="#daefff">
@@ -34,17 +34,18 @@
               cols="auto"
               class="d-flex flex-column justify-center align-center"
             >
-              <v-progress-circular
-                :size="50"
-                color="primary"
-                indeterminate
-              ></v-progress-circular>
-              <span class="display-1">Loading...</span>
+              <v-skeleton-loader
+                v-for="n in 10"
+                :key="n"
+                elevation="0"
+                min-width="400"
+                type="list-item-two-line"
+              ></v-skeleton-loader>
             </v-col>
           </v-row>
         </v-container>
 
-        <v-container v-else-if="transactions.length === 0 && !isLoading">
+        <v-container v-else-if="data.length === 0 && !isLoading">
           <v-row
             class="d-flex justify-center align-center"
             style="height: 100%;"
@@ -53,12 +54,12 @@
               cols="auto"
               class="d-flex flex-column justify-center align-center"
             >
-              <p>No transactions found for the selected period.</p>
+              <p>No data found for the selected period.</p>
 
             </v-col>
           </v-row>
         </v-container>
-        <ListTransactable v-else :transactions="transactions" />
+        <ListTransactable v-else :transactions="data" />
       </v-col>
     </v-row>
   </v-container>
@@ -76,13 +77,12 @@ import {onMounted} from "vue";
 import useTransactionStore from "@/store/TransactionStore";
 import { storeToRefs } from "pinia";
 import { CardResume } from "@/types/CardResume";
-import { getLast12Months } from "@/util/DateFormat";
 
 const router = useRouter();
 
 const transactionStore = useTransactionStore();
 
-const { totalBalance, totalIncome, totalExpense, transactions, isLoading} = storeToRefs(transactionStore);
+const { totalBalance, totalIncome, totalExpense, data, isLoading} = storeToRefs(transactionStore);
 
 onMounted(async () => {
   await getTransactions();
@@ -91,8 +91,6 @@ onMounted(async () => {
 async function getTransactions() {
   return transactionStore.fetchTransactions(4)
 }
-
-const monthYear = getLast12Months();
 
 const balance : CardResume = {
   "amount": totalBalance,

@@ -1,5 +1,4 @@
 <template>
-
   <v-main class="v-main" max-width="412">
     <LeftSideMenu/>
     <MainHeader/>

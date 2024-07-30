@@ -14,6 +14,7 @@ import Checks from "@/views/Checks.vue";
 import CheckControl from "@/views/admin/CheckControl.vue";
 import CreatePurchase from "@/views/CreatePurchase.vue";
 import NotFound from "@/views/NotFound.vue";
+import Incomes from "@/views/Incomes.vue";
 
 
 const routes = [
@@ -49,8 +50,8 @@ const routes = [
   },
   {
     path: '/incomes',
-    name: 'incomes',
-    component: Checks,
+    name: 'Incomes',
+    component: Incomes,
   },
   {
     path: '/admin',

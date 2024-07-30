@@ -187,11 +187,18 @@ const configs = {
     "updated_at": "2024-08-04T09:45:00Z"
   }
 ],
- monthYear: [
-   {title: 'August, 2024'},
-   {title: 'November, 2024'},
-   {title: 'December, 2024'}
- ]
+headerConfig: {
+  default: {
+    name: 'default',
+    color: '#FFFFFF',
+    background: '#BDE0FE',
+  },
+  secondary: {
+    name: 'secondary',
+    color: '#2799FB',
+    background: '#F1F9FE',
+  }
+}
 
 }
 

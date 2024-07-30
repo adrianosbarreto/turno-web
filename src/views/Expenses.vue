@@ -1,22 +1,26 @@
 <template>
-  <FilterByMonthYear :items="monthYear" class="filter" />
-  <TransactableList :transactions="data"/>
+  <FilterByMonthYear class="filter" type="expense" />
+  <TransactableList :transactions="dataExpense"/>
   <TransactionRoundedAddButton :action="() => navigate('/expenses/new')"/>
 </template>
 
 <script setup lang="ts">
-import {Transaction} from "@/types/Transaction";
-import configs from "@/configs";
+
 import TransactableList from "@/components/TransactableList.vue";
 import FilterByMonthYear from "@/components/FilterByMonthYear.vue";
 import TransactionRoundedAddButton from "@/components/TransactionRoundedAddButton.vue";
 import {useRouter} from "vue-router";
+import useTransactionStore from "@/store/TransactionStore";
+import {storeToRefs} from "pinia";
+import {computed} from "vue";
 
 const router = useRouter();
 
-const data: Transaction[] = configs.transactions;
+const { expenses } = storeToRefs(useTransactionStore());
 
-const monthYear = configs.monthYear;
+const dataExpense = computed(() => {
+  return expenses.value.filter((transaction) => transaction.type === 'expense');
+});
 
 function navigate(route: string) : void {
   router.push(route);
