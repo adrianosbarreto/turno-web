@@ -5,36 +5,54 @@
     class="selection-input"
     menu-icon="mdi-chevron-down"
     hide-details
-    :items="props.items"
+    :items="items"
+    :item-title="item => item.monthYear"
+    :item-value="item => item"
   >
   </v-select>
 </template>
 
 <script setup lang="ts">
 import {ref, watch} from "vue";
+  import {storeToRefs} from "pinia";
+  import useTransactionStore from "@/store/TransactionStore";
+  import {getLast12Months} from "@/util/DateFormat";
+
+  const transactionStore = useTransactionStore();
+
+  const { month, year } = storeToRefs(transactionStore);
 
   interface ItemData {
-    title: string;
+    monthNumber: number,
+    monthYear: string,
+    year: number,
   }
 
-  interface Data {
-    items: ItemData[];
-    fontSize: string;
-  }
+  // interface Data {
+  //   fontSize: string;
+  // }
 
-  const props = defineProps<Partial<Data>>();
+  // const props = defineProps<Partial<Data>>();
 
-  const selected = ref<string | null>(null);
+  const items : ItemData[] = getLast12Months();
 
-  watch(
-    () => props.items,
-    (newItems) => {
-      if (newItems && newItems.length > 0) {
-        selected.value = newItems[0].title;
-      }
-    },
-    { immediate: true }
-  );
+  const selected = ref<ItemData>(items[0]);
+
+watch(
+  () => selected.value,
+  (newItem) => {
+    if (newItem) {
+      console.log(newItem)
+
+      month.value = newItem.monthNumber;
+      year.value = newItem.year;
+
+      transactionStore.fetchTransactions(4);
+    }
+  },
+  { immediate: true }
+);
+
 
 </script>
 

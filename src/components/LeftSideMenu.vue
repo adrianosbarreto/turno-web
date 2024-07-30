@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!leftSideMenuStore.isCollapsed">
+  <div v-if="leftSideMenuStore.isCollapsed">
       <div class="left-navigation-overlay" @click="toggleMenu"></div>
 
         <div class="left-navigation">

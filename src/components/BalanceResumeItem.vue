@@ -2,12 +2,12 @@
   <v-list-item class="transaction-item">
     <template v-slot:title>
       <span class="transaction-title">
-        {{ props.transaction.description }}
+        {{ props.cardResume.description }}
       </span>
     </template>
     <template v-slot:subtitle>
       <span class="transaction-subtitle">
-        ${{ props.transaction.amount }}
+        ${{ props.cardResume.amount }}
       </span>
     </template>
     <template v-slot:append>
@@ -18,10 +18,10 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { Transaction } from "@/types/Transaction";
+import {CardResume} from "@/types/CardResume";
 
 const props = defineProps<{
-  transaction: Transaction;
+  cardResume: CardResume;
 }>();
 
 </script>

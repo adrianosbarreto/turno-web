@@ -48,8 +48,8 @@ const configs = {
     "description": "Purchase of office supplies",
     "date": "2024-07-25T10:20:30Z",
     "type": "expense",
-    "createdAt": "2024-07-25T10:20:30Z",
-    "updatedAt": "2024-07-25T10:20:30Z"
+    "created_at": "2024-07-25T10:20:30Z",
+    "updated_at": "2024-07-25T10:20:30Z"
   },
   {
     "id": 2,
@@ -57,8 +57,8 @@ const configs = {
     "description": "Client payment for services",
     "date": "2024-07-26T12:45:00Z",
     "type": "income",
-    "createdAt": "2024-07-26T12:45:00Z",
-    "updatedAt": "2024-07-26T12:45:00Z"
+    "created_at": "2024-07-26T12:45:00Z",
+    "updated_at": "2024-07-26T12:45:00Z"
   },
   {
     "id": 3,
@@ -66,8 +66,8 @@ const configs = {
     "description": "Team lunch",
     "date": "2024-07-27T14:15:45Z",
     "type": "expense",
-    "createdAt": "2024-07-27T14:15:45Z",
-    "updatedAt": "2024-07-27T14:15:45Z"
+    "created_at": "2024-07-27T14:15:45Z",
+    "updated_at": "2024-07-27T14:15:45Z"
   },
   {
     "id": 4,
@@ -75,8 +75,8 @@ const configs = {
     "description": "Website development services",
     "date": "2024-07-28T09:30:00Z",
     "type": "income",
-    "createdAt": "2024-07-28T09:30:00Z",
-    "updatedAt": "2024-07-28T09:30:00Z"
+    "created_at": "2024-07-28T09:30:00Z",
+    "updated_at": "2024-07-28T09:30:00Z"
   },
   {
     "id": 5,
@@ -84,8 +84,8 @@ const configs = {
     "description": "Monthly subscription fee",
     "date": "2024-07-29T11:00:00Z",
     "type": "expense",
-    "createdAt": "2024-07-29T11:00:00Z",
-    "updatedAt": "2024-07-29T11:00:00Z"
+    "created_at": "2024-07-29T11:00:00Z",
+    "updated_at": "2024-07-29T11:00:00Z"
   },
   {
     "id": 6,
@@ -93,8 +93,8 @@ const configs = {
     "description": "Invoice payment from client",
     "date": "2024-07-30T08:45:00Z",
     "type": "income",
-    "createdAt": "2024-07-30T08:45:00Z",
-    "updatedAt": "2024-07-30T08:45:00Z"
+    "created_at": "2024-07-30T08:45:00Z",
+    "updated_at": "2024-07-30T08:45:00Z"
   },
   {
     "id": 7,
@@ -102,8 +102,8 @@ const configs = {
     "description": "Office rent",
     "date": "2024-08-01T10:30:00Z",
     "type": "expense",
-    "createdAt": "2024-08-01T10:30:00Z",
-    "updatedAt": "2024-08-01T10:30:00Z"
+    "created_at": "2024-08-01T10:30:00Z",
+    "updated_at": "2024-08-01T10:30:00Z"
   },
   {
     "id": 8,
@@ -111,8 +111,8 @@ const configs = {
     "description": "Utility bills",
     "date": "2024-08-02T11:15:00Z",
     "type": "expense",
-    "createdAt": "2024-08-02T11:15:00Z",
-    "updatedAt": "2024-08-02T11:15:00Z"
+    "created_at": "2024-08-02T11:15:00Z",
+    "updated_at": "2024-08-02T11:15:00Z"
   },
   {
     "id": 9,
@@ -120,8 +120,8 @@ const configs = {
     "description": "Project milestone payment",
     "date": "2024-08-03T14:00:00Z",
     "type": "income",
-    "createdAt": "2024-08-03T14:00:00Z",
-    "updatedAt": "2024-08-03T14:00:00Z"
+    "created_at": "2024-08-03T14:00:00Z",
+    "updated_at": "2024-08-03T14:00:00Z"
   },
   {
     "id": 10,
@@ -129,8 +129,8 @@ const configs = {
     "description": "Miscellaneous office expense",
     "date": "2024-08-04T09:45:00Z",
     "type": "expense",
-    "createdAt": "2024-08-04T09:45:00Z",
-    "updatedAt": "2024-08-04T09:45:00Z"
+    "created_at": "2024-08-04T09:45:00Z",
+    "updated_at": "2024-08-04T09:45:00Z"
   },
   {
     "id": 15,
@@ -138,8 +138,8 @@ const configs = {
     "description": "Monthly subscription fee",
     "date": "2024-07-29T11:00:00Z",
     "type": "expense",
-    "createdAt": "2024-07-29T11:00:00Z",
-    "updatedAt": "2024-07-29T11:00:00Z"
+    "created_at": "2024-07-29T11:00:00Z",
+    "updated_at": "2024-07-29T11:00:00Z"
   },
   {
     "id": 16,
@@ -147,8 +147,8 @@ const configs = {
     "description": "Invoice payment from client",
     "date": "2024-07-30T08:45:00Z",
     "type": "income",
-    "createdAt": "2024-07-30T08:45:00Z",
-    "updatedAt": "2024-07-30T08:45:00Z"
+    "created_at": "2024-07-30T08:45:00Z",
+    "updated_at": "2024-07-30T08:45:00Z"
   },
   {
     "id": 17,
@@ -156,8 +156,8 @@ const configs = {
     "description": "Office rent",
     "date": "2024-08-01T10:30:00Z",
     "type": "expense",
-    "createdAt": "2024-08-01T10:30:00Z",
-    "updatedAt": "2024-08-01T10:30:00Z"
+    "created_at": "2024-08-01T10:30:00Z",
+    "updated_at": "2024-08-01T10:30:00Z"
   },
   {
     "id": 18,
@@ -165,8 +165,8 @@ const configs = {
     "description": "Utility bills",
     "date": "2024-08-02T11:15:00Z",
     "type": "expense",
-    "createdAt": "2024-08-02T11:15:00Z",
-    "updatedAt": "2024-08-02T11:15:00Z"
+    "created_at": "2024-08-02T11:15:00Z",
+    "updated_at": "2024-08-02T11:15:00Z"
   },
   {
     "id": 19,
@@ -174,8 +174,8 @@ const configs = {
     "description": "Project milestone payment",
     "date": "2024-08-03T14:00:00Z",
     "type": "income",
-    "createdAt": "2024-08-03T14:00:00Z",
-    "updatedAt": "2024-08-03T14:00:00Z"
+    "created_at": "2024-08-03T14:00:00Z",
+    "updated_at": "2024-08-03T14:00:00Z"
   },
   {
     "id": 20,
@@ -183,8 +183,8 @@ const configs = {
     "description": "Miscellaneous office expense",
     "date": "2024-08-04T09:45:00Z",
     "type": "expense",
-    "createdAt": "2024-08-04T09:45:00Z",
-    "updatedAt": "2024-08-04T09:45:00Z"
+    "created_at": "2024-08-04T09:45:00Z",
+    "updated_at": "2024-08-04T09:45:00Z"
   }
 ],
  monthYear: [
