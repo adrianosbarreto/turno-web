@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosCommon = axios.create({
-  baseURL: import.meta.env.VITE_API_URL | 'http://localhost/api'
+  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost/api'
 })
 
 const token = localStorage.getItem('access_token');
