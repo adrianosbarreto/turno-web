@@ -1,12 +1,12 @@
 <template>
   <v-list-item class="transaction-item" :style="itemStyle">
     <template v-slot:title>
-      <span class="transaction-title">
+      <span class="transaction-title" :style="titleStyle">
         {{ props.cardResume.description }}
       </span>
     </template>
     <template v-slot:subtitle>
-      <span class="transaction-subtitle">
+      <span class="transaction-subtitle" :style="subtitleStyle">
         ${{ props.cardResume.amount }}
       </span>
     </template>
@@ -24,10 +24,24 @@ import {CardResume} from "@/types/CardResume";
 const props = defineProps<{
   cardResume: CardResume;
   color?: string;
+  colorSubtitle?: string;
+  sizeSubTitle?: string;
+  sizeTitle?: string;
+  colorTitle?: string;
 }>();
 
 const itemStyle = computed(() => ({
   backgroundColor: props.color || '#ffffff',
+}));
+
+const titleStyle = computed(() => ({
+  color: props?.colorTitle || '#0177dc',
+  fontSize: props?.sizeTitle || 0.8,
+}));
+
+const subtitleStyle = computed(() => ({
+  color: props?.colorSubtitle || '#0177dc',
+  fontSize: props?.sizeSubTitle || 1.2,
 }));
 
 </script>

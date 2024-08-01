@@ -1,37 +1,31 @@
 <template>
   <v-container fluid class="h-100">
     <v-row class="h-100">
-      <v-col class="h-100">
-        <form class="h-50 d-flex flex-column justify-center">
+      <v-col class="d-flex flex-column justify-center">
+        <form class="h-50 d-flex flex-column justify-center pa-4" @submit.prevent="registerUser">
           <div class="pa-4">
             <CustomRoundedTextField
               v-model="state.name"
               label="username"
               required
-              @blur="v$.name.$touch"
-              @input="v$.name.$touch"
             ></CustomRoundedTextField>
 
             <CustomRoundedTextField
               v-model="state.email"
               label="email"
               required
-              @blur="v$.email.$touch"
-              @input="v$.email.$touch"
             ></CustomRoundedTextField>
 
             <CustomRoundedTextField
               v-model="state.password"
               label="password"
               required
-              @blur="v$.password.$touch"
-              @input="v$.password.$touch"
             ></CustomRoundedTextField>
           </div>
           <div class="d-flex">
             <v-btn
+              type="submit"
               class="sign-up me-4 w-100"
-              @click="v$.$validate"
             >
               sign up
             </v-btn>
@@ -39,13 +33,14 @@
 
         </form>
         <div class="h-25 d-flex flex-column justify-center">
-          <span class="divider mx-auto"></span>
+          <span class="divider mx-auto py-4"></span>
 
           <div>
             <v-btn
               class="me-4 w-100 text-none"
               variant="flat"
               color="white"
+              @click="router.push('/login')"
             >
               <span class="login">
                 Already have an account?
@@ -65,6 +60,14 @@
   import { useVuelidate } from '@vuelidate/core';
   import { email, required } from '@vuelidate/validators';
   import CustomRoundedTextField from '@/components/CustomRoundedTextField.vue';
+  import { useRouter } from 'vue-router';
+  import {useNotificationStore} from "@/store/NotificationStore";
+  import {registerAccount} from "@/services/AccountService";
+
+
+  const notificationStore = useNotificationStore();
+
+  const router = useRouter()
 
   const initialState = {
     name: '',
@@ -84,6 +87,37 @@
   }
 
   const v$ = useVuelidate(rules, state)
+
+  async function registerUser() {
+    const validated = await v$.value.$validate();
+
+    const user = {
+      username: state.name,
+      email: state.email,
+      password: state.password,
+    };
+
+    if (validated) {
+      const response = await registerAccount(user);
+
+      if (response.status === 200) {
+        notificationStore.showNotification(
+          `${response.data.message}`,
+          'success',
+          2000
+        );
+
+        Object.assign(state, initialState);
+      } else {
+        notificationStore.showNotification(
+          `${response.data.message}`,
+          'error',
+          2000
+        );
+      }
+    }
+  }
+
 
 </script>
 

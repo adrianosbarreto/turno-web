@@ -18,6 +18,29 @@ export default createVuetify({
     CustomRoundedTextField,
   },
   defaults: {
+    VContainer: {
+      style: {
+        // height: '90vh',
+        maxHeight: '80vh',
+        padding: '0',
+        margin: '0',
+      },
+    },
+    VRow: {
+      style: {
+        // height: '60vh',
+        maxHeight: '50vh',
+        padding: '0',
+        margin: '0',
+
+      },
+    },
+    VCol: {
+      style: {
+        // height: '60vh',
+        maxHeight: '60vh',
+      },
+    },
     VBtn: {
       elevation: 0,
       style:{

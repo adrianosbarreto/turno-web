@@ -1,7 +1,7 @@
 <template>
-  <v-container class="pa-0 ma-0 h-100" >
-    <v-row class="h-100">
-      <v-col class="h-100">
+  <v-container fluid class="pa-0 ma-0">
+    <v-row>
+      <v-col cols="12">
         <BalanceResumeItem :card-resume="balance">
           <template v-slot:button>
             <FilterByMonthYear type="all"/>
@@ -17,10 +17,10 @@
             <TransactionAddButton text="Purchase" color="#f1f9fe" :action="() => navigate('/expenses')"/>
           </template>
         </CardResumeTransaction>
-        <v-container class="py-5 pb-0">
+        <v-container class="pt-4 pb-2">
           <v-row>
             <v-col >
-              <span class="text-uppercase my-5 text-primary font-weight-medium">Transactions</span>
+              <span class="text-uppercase ma-4 text-primary font-weight-medium">Transactions</span>
             </v-col>
           </v-row>
         </v-container>
@@ -28,7 +28,6 @@
         <v-container v-if="isLoading" class="h-50" >
           <v-row
             class="d-flex justify-center align-center"
-            style="height: 100%;"
           >
             <v-col
               cols="auto"
@@ -59,7 +58,14 @@
             </v-col>
           </v-row>
         </v-container>
-        <ListTransactable v-else :transactions="data" />
+        <v-container>
+          <v-row>
+            <v-col>
+              <ListTransactable :transactions="data" />
+            </v-col>
+          </v-row>
+        </v-container>
+<!--        <ListTransactable v-else :transactions="data" />-->
       </v-col>
     </v-row>
   </v-container>

@@ -6,6 +6,7 @@ export function getChecks(account_id : number,  month: number, year: number): Pr
   return axios.post(`/checks/month-year-filter?account_id=${account_id}&month=${month}&year=${year}`);
 }
 
-export function addCheck(account_id : string, check: Check): Promise<any>{
+export function addCheck(account_id : number, check: any): Promise<any>{
+  console.log(check, account_id);
   return axios.post(`/checks`, {...check, account_id });
 }

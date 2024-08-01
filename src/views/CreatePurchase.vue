@@ -1,47 +1,73 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <v-card class="d-flex flex-column justify-lg-space-between">
-          <v-form @submit.prevent="addCheck">
+  <v-container  fluid >
+    <CardResumeTransaction :card-resume="balanceCard" color="#F1F9FE" color-title="#BDE0FE"
+    />
 
-                <div class="upload-area pa-4">
-
-                  <v-file-input
-                    variant="solo"
-                    width="30"
-                    v-model="state.file"
-                    :error-messages="v$.file.$errors.map((e) => e.$message)"
-                    :class="`check w-100 ${!state.file?'py-12': ''}`"
+  </v-container>
+  <v-container fluid class="h-100">
+    <v-row class="h-100">
+      <v-col class="h-100">
+        <v-card elevation="0" class="h-100">
+          <v-form @submit.prevent="insertPurchase" class="h-100 pa-4 d-flex flex-column justify-space-evenly">
+            <div>
+              <v-row>
+                <v-col cols="9">
+                  <v-label class="text-field text-uppercase font-weight-bold">
+                    <v-icon size="20" icon="mdi-home"> </v-icon>
+                    <p class="pl-3">Amount</p>
+                  </v-label>
+                  <v-text-field
+                    v-model="stateForm.amount"
+                    required
+                    variant="underlined"
+                    class="text-primary"
+                    @input="onValueChange"
+                    :error-messages="vuelidate.amount.$errors?.map((e) => e.$message)"
                   >
-                    <template v-slot:label v-if="!state.file">
-                      <div class="d-flex flex-column justify-center align-center">
-                        <v-icon
-                          color="primary"
-                          icon="mdi-home"
-                        >
-                        </v-icon>
-                        <p class="text-uppercase">Upload check picture</p>
-                      </div>
+                    <template v-slot:prepend-inner>
+                      <span>$</span>
                     </template>
-                    <template v-slot:selection="{ fileNames }">
-                      <template v-for="fileName in fileNames" :key="fileName">
-                        <v-img
-                          :width="200"
-                          :height="200"
-                          cover
-                          :src="getImage()"
-                        >
-                        </v-img>
-                      </template>
-                    </template>
-                  </v-file-input>
-                </div>
+                  </v-text-field>
+                </v-col>
+                <v-col cols="3" align-self="center">
+                  <p class="text-uppercase text-large align-self-center">USD</p>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="9">
+                  <v-label class="text-field text-uppercase font-weight-bold">
+                    <v-icon size="20" icon="mdi-home"></v-icon>
+                    <p class="pl-3">Date</p>
+                  </v-label>
+                  <v-text-field variant="underlined" readonly class="text-primary text-xl" width="75%">
+                    {{ formattedDate }}
+                  </v-text-field>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col>
+                  <v-label class="text-field text-uppercase font-weight-bold">
+                    <v-icon size="20" icon="mdi-home"></v-icon>
+                    <span class="pl-3">Description</span>
+                  </v-label>
+                  <v-text-field
+                    required
+                    v-model="stateForm.description"
+                    variant="underlined"
+                    class="text-primary"
+                    :error-messages="vuelidate.description.$errors?.map((e) => e.$message)"
+                  ></v-text-field>
+                </v-col>
+
+              </v-row>
+            </div>
+
             <div class="d-flex">
               <v-btn
                 type="submit"
                 class="purchase me-4 w-100"
-                @click="v$.$validate"
               >
                 Add Purchase
               </v-btn>
@@ -58,37 +84,90 @@
 <script setup lang="ts">
   import {required} from "@vuelidate/validators";
   import {useVuelidate} from "@vuelidate/core";
-  import {reactive} from "vue";
+  import {computed, reactive} from "vue";
+  import {getMonthDayYear} from "@/util/DateFormat";
+  import {useNotificationStore} from "@/store/NotificationStore";
+  import {createPurchase} from "@/services/TransactionService";
+  import CardResumeTransaction from "@/components/TransactionResumeItem.vue";
+  import {CardResume} from "@/types/CardResume";
+  import {storeToRefs} from "pinia";
+  import {useAccountStore} from "@/store/AccountStore";
+
+  const {balance} = storeToRefs(useAccountStore());
+
+  const balanceCard : CardResume = {
+    "amount": balance,
+    "description": "Current balance",
+  }
+
+  const notificationStore = useNotificationStore();
 
   const initialState = {
     amount: '',
     description: '',
-    file: null,
   }
 
-  const state = reactive({
+  const stateForm = reactive({
     ...initialState,
   })
 
-  function getImage (){
-    if (state && state.file && state.file) {
-      return URL.createObjectURL(state.file);
-    } else {
-      return '';
+  const  rules = computed(() => {
+    return {
+      amount: {required},
+      description: {required},
+    }
+  });
+
+  const formattedDate = computed(() => {
+      const now = new Date();
+      const day = now.getDate();
+      const month = now.getMonth() + 1;
+      const year = now.getFullYear();
+      return getMonthDayYear(day, month, year);
+  });
+
+  const onValueChange = (event: any) => {
+    let value = event.target.value;
+    value = value.replace(/[^\d,]/g, '');
+    value = (value / 100).toFixed(2);
+    stateForm.amount = value;
+  }
+
+  const vuelidate = useVuelidate(rules, stateForm);
+
+  async function insertPurchase(){
+    const validated = await vuelidate.value.$validate();
+
+    const transaction = {
+      amount: stateForm.amount,
+      description: stateForm.description,
+      type: 'expense',
+      account_id: 4
+    }
+
+    if(validated){
+      const response = await createPurchase(transaction);
+
+      if(response.status === 200){
+        notificationStore.showNotification(
+          `${response.data.message}`,
+          'success',
+          2000
+        );
+
+        // stateForm.value = initialState;
+      }
+      else{
+        console.log(response.message)
+        notificationStore.showNotification(
+          `${response.message}`,
+          'error',
+          2000
+        );
+      }
     }
   }
 
-  function addCheck(){
-    console.log('addCheck');
-  }
-
-  const rules = {
-    amount: { required },
-    description: { required},
-    file: {required},
-  }
-
-  const v$ = useVuelidate(rules, state);
 </script>
 
 
@@ -96,6 +175,16 @@
   .purchase{
     background-color: #2799FB;
     color: white;
+  }
+
+  .text-field{
+    color: #2799FB;
+    font-size: 0.7rem;
+  }
+
+  .text-large{
+    font-size: 1.5rem;
+    color: #2799FB;
   }
 
   .check {
@@ -112,6 +201,7 @@
       align-items: center;
 
       .v-field__input{
+        padding-left: 2rem;
 
         .v_img{
           width: 100%;

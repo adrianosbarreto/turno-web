@@ -39,5 +39,13 @@ export const getLast12Months = () => {
   return months;
 };
 
+export const getMonthDayYear = (day:number, monthNumber: number, year: number) => {
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  return `${monthNames[monthNumber - 1]} ${day}, ${year}`;
+};
 
 export default formatDateTime;

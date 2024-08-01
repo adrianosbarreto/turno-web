@@ -26,8 +26,6 @@ $height_input: 3rem;
 
     height: $height_input;
 
-
-
     .v-field__outline {
       display: none;
     }

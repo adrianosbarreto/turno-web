@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-tertiary w-100 h-100">
+  <div class="background-color">
     <FilterByMonthYear class="filter" type="check" />
   </div>
 
@@ -53,13 +53,15 @@ const { checks } = storeToRefs(transactionStore);
 
 const router = useRouter();
 
-const tab = ref(null);
+
 
 const tabItemData = ref([
   { tab: 'pending', type: 'pending', data: [] },
   { tab: 'accepted', type: 'accept',  data: [] },
   { tab: 'rejected', type: 'reject',  data: [] }
 ]);
+
+const tab = ref('pending');
 
 onMounted(async () => {
   await transactionStore.fetchChecks(4);
@@ -73,10 +75,8 @@ function fillTabItemData(apiResponse: any) {
   tabItemData.value.forEach((item) => {
     const key = item.type;
 
-    console.log(apiResponse);
-
     if (apiResponse[key]) {
-      console.log(apiResponse[key]);
+
       item.data = apiResponse[key];
     }
   });
@@ -127,7 +127,8 @@ const navigate = (route: string) : void => {
 
 }
 
-.bg-tertiary{
+.background-color{
   background-color: #F1F9FE;
+  padding-bottom: 1rem;
 }
 </style>

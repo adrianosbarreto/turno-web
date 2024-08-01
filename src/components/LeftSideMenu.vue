@@ -86,10 +86,14 @@ function navigateTo(route: string) {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #bde0fe;
+  height: 13%;
 
   &-text {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 300;
   }
 }

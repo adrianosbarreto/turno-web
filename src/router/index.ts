@@ -15,73 +15,89 @@ import CheckControl from "@/views/admin/CheckControl.vue";
 import CreatePurchase from "@/views/CreatePurchase.vue";
 import NotFound from "@/views/NotFound.vue";
 import Incomes from "@/views/Incomes.vue";
+import AuthLayout from "@/layout/AuthLayout.vue";
+import MainLayout from "@/layout/MainLayout.vue";
 
+import { isAuthenticated, isAdmin } from "@/services/AuthService";
+import CreateCheck from "@/views/CreateCheck.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'SignUp',
-    component: SignUp
-  },
-  {
     path: '/login',
-    name: 'Login',
-    component: Login
+    component: AuthLayout,
+    children: [
+      {
+        path: '',
+        name: 'Login',
+        component: Login
+      }
+    ]
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/signup',
+    component: AuthLayout,
+    children: [
+      {
+        path: '',
+        name: 'Signup',
+        component: SignUp
+      }
+    ]
   },
   {
-    path: '/expenses',
-    name: 'Expenses',
-    component: Expenses,
-  },
-  {
-    path: '/expenses/new',
-    name: 'NewExpenses',
-    component: CreatePurchase,
-  },
-  {
-    path: '/checks',
-    name: 'Checks',
-    component: Checks,
-  },
-  {
-    path: '/incomes',
-    name: 'Incomes',
-    component: Incomes,
-  },
-  {
-    path: '/admin',
-    name: 'CheckControl',
-    component: CheckControl,
-  },
-  {
-    path: '/:catchAll(.*)',
-    name: 'NotFound',
-    component: NotFound
+    path: '/',
+    component: MainLayout,
+    children: [
+      {
+        path: '/home',
+        name: 'Home',
+        component: Home,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/expenses',
+        name: 'Expenses',
+        component: Expenses,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/expenses/new',
+        name: 'Purchase',
+        component: CreatePurchase,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/checks',
+        name: 'Checks',
+        component: Checks,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/checks/new',
+        name: 'Checks Deposit',
+        component: CreateCheck,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/incomes',
+        name: 'Incomes',
+        component: Incomes,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/admin',
+        name: 'CheckControl',
+        component: CheckControl,
+        meta: { requiresAuth: true, requiresAdmin: true }
+      },
+      {
+        path: '/:catchAll(.*)',
+        name: 'NotFound',
+        component: NotFound,
+        meta: { requiresAuth: true }
+      },
+    ]
   }
-
-
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: About
-  // },
-  // {
-  //   path: '/users',
-  //   name: 'UsersIndex',
-  //   component: UsersIndex,
-  //   children: [
-  //     {
-  //       path: 'profile',
-  //       name: 'UsersProfile',
-  //       component: UsersProfile
-  //     }
-  //   ]
-  // }
 ];
 
 const router = createRouter({
@@ -104,6 +120,26 @@ router.onError((err, to) => {
     console.error(err)
   }
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isAuthenticated()) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      });
+    } else if (to.matched.some(record => record.meta.requiresAdmin) && !isAdmin()) {
+      next({
+        path: '/unauthorized',
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 
 router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload')

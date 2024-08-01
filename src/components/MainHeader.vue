@@ -40,7 +40,6 @@ function toggleMenu() {
 
 watch(() => route.name,
   (currentRouteName) => {
-    console.log(currentRouteName);
 
     if(typeof currentRouteName === 'string'){
       if (currentRouteName.toLowerCase() === 'home') {
@@ -51,9 +50,6 @@ watch(() => route.name,
         currentHeaderConfig.value.title = currentRouteName;
       }
     }
-
-
-    console.log(currentHeaderConfig);
   });
 
 </script>

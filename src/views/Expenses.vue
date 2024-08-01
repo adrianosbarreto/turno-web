@@ -1,5 +1,8 @@
 <template>
-  <FilterByMonthYear class="filter" type="expense" />
+  <div class="background-color">
+    <FilterByMonthYear class="filter" type="expense" />
+  </div>
+
   <TransactableList :transactions="dataExpense"/>
   <TransactionRoundedAddButton :action="() => navigate('/expenses/new')"/>
 </template>
@@ -33,5 +36,10 @@ function navigate(route: string) : void {
     width: 200px;
     margin: 0 1rem;
     font-size: 16px;
+  }
+
+  .background-color{
+    background-color: #F1F9FE;
+    padding-bottom: 1rem;
   }
 </style>
