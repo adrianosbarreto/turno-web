@@ -29,6 +29,39 @@
       <v-container class="ma-0 pa-0 h-100">
         <TransactableList :transactions="item.data" />
       </v-container>
+      <v-container v-if="isLoading" class="h-50" >
+        <v-row
+          class="d-flex justify-center align-center"
+        >
+          <v-col
+            cols="auto"
+            class="d-flex flex-column justify-center align-center"
+          >
+            <v-skeleton-loader
+              v-for="n in 10"
+              :key="n"
+              elevation="0"
+              min-width="400"
+              type="list-item-two-line"
+            ></v-skeleton-loader>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container v-else-if="item.data.length === 0 && !isLoading">
+        <v-row
+          class="d-flex justify-center align-center"
+          style="height: 100%;"
+        >
+          <v-col
+            cols="auto"
+            class="d-flex flex-column justify-center align-center"
+          >
+            <p>No data found for the selected period.</p>
+
+          </v-col>
+        </v-row>
+      </v-container>
 
     </v-tabs-window-item>
   </v-tabs-window>
@@ -49,7 +82,7 @@ import useTransactionStore from "@/store/TransactionStore";
 
 
 const transactionStore = useTransactionStore();
-const { checks } = storeToRefs(transactionStore);
+const { checks, isLoading} = storeToRefs(transactionStore);
 
 const router = useRouter();
 
@@ -72,6 +105,7 @@ watch(checks, (newValue) => {
 });
 
 function fillTabItemData(apiResponse: any) {
+
   tabItemData.value.forEach((item) => {
     const key = item.type;
 

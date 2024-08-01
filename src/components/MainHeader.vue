@@ -4,8 +4,8 @@
         <v-icon
           @click="toggleMenu"
           :color="currentHeaderConfig.config.color"
+          :icon="mdiMenu"
         >
-          mdi-menu
         </v-icon>
     </div>
     <h1 :class="[currentHeaderConfig.title == title ? 'text-header' : 'text-header-secondary']">
@@ -19,6 +19,7 @@ import { useLeftSideMenuStore } from "@/store/LeftSideMenuStore";
 import {ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import configs from "@/configs";
+import {mdiMenu} from "@mdi/js";
 
 const leftSideMenustore = useLeftSideMenuStore();
 

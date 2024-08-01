@@ -7,7 +7,7 @@
     </template>
     <template v-slot:subtitle>
       <span class="transaction-subtitle" :style="subtitleStyle">
-        ${{ props.cardResume.amount }}
+        ${{ cardResumeBalance }}
       </span>
     </template>
     <template v-slot:append>
@@ -29,6 +29,15 @@ const props = defineProps<{
   sizeTitle?: string;
   colorTitle?: string;
 }>();
+
+const cardResumeBalance = computed(() => {
+  if (typeof props.cardResume.amount === "number") {
+    return props.cardResume.amount.toFixed(2);
+  } else {
+    return props.cardResume.amount.value.toFixed(2);
+  }
+})
+
 
 const itemStyle = computed(() => ({
   backgroundColor: props.color || '#ffffff',

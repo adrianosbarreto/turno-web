@@ -9,12 +9,12 @@
         </BalanceResumeItem>
         <CardResumeTransaction :card-resume="incomes" color="#daefff">
           <template v-slot:button>
-            <TransactionAddButton text="Deposit a check" color="#daefff" :action="() => navigate('/checks')"/>
+            <TransactionAddButton text="Deposit a check" color="#daefff" :action="() => navigate('/checks/new')"/>
           </template>
         </CardResumeTransaction>
         <CardResumeTransaction :card-resume="expenses" color="#f1f9fe" >
           <template v-slot:button>
-            <TransactionAddButton text="Purchase" color="#f1f9fe" :action="() => navigate('/expenses')"/>
+            <TransactionAddButton text="Purchase" color="#f1f9fe" :action="() => navigate('/expenses/new')"/>
           </template>
         </CardResumeTransaction>
         <v-container class="pt-4 pb-2">

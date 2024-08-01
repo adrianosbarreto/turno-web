@@ -3,7 +3,7 @@
     v-model="selected"
     variant="underlined"
     class="selection-input"
-    menu-icon="mdi-chevron-down"
+    :menu-icon="mdiChevronDown"
     hide-details
     :items="items"
     :item-title="item => item.monthYear"
@@ -17,6 +17,7 @@
   import {storeToRefs} from "pinia";
   import {getLast12Months} from "@/util/DateFormat";
   import useTransactionStore from "@/store/TransactionStore";
+  import {mdiChevronDown} from "@mdi/js";
 
 
   interface ItemData {
@@ -53,6 +54,8 @@
           transactionStore.fetchTransactions(4);
         } else if(props.type == 'check'){
           transactionStore.fetchChecks(4);
+        } else if(props.type == 'check-pending'){
+          transactionStore.fetchPendingChecks();
         }
 
       }

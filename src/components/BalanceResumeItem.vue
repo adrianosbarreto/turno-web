@@ -7,7 +7,7 @@
     </template>
     <template v-slot:subtitle>
       <span  class="transaction-subtitle">
-        ${{ balance }}
+        {{ cardResumeBalance }}
         </span>
     </template>
     <template v-slot:append>
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, onMounted} from 'vue';
+import {computed, defineProps, onMounted} from 'vue';
 import {CardResume} from "@/types/CardResume";
 import {useAccountStore} from "@/store/AccountStore";
 import {storeToRefs} from "pinia";
@@ -30,6 +30,24 @@ const { isLoading, balance } = storeToRefs(accountStore);
 const props = defineProps<{
   cardResume: CardResume;
 }>();
+
+const cardResumeBalance = computed(() => {
+  let value: string;
+  if (typeof props.cardResume.amount === "number") {
+    value = props.cardResume.amount.toFixed(2);
+  } else {
+    value = props.cardResume.amount.value.toFixed(2);
+  }
+
+  let numberValue = parseFloat(value)
+  const literal =  numberValue.toFixed(2);
+
+  if(numberValue < 0){
+    return `-$${Math.abs(numberValue).toFixed(2)}`;
+  } else {
+    return `$${literal}`;
+  }
+})
 
 onMounted(async () => {
   await accountStore.fetchBalance(4);

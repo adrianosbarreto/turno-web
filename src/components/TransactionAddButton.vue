@@ -1,7 +1,7 @@
 <template>
   <v-btn class="transaction-button" variant="flat" :style="itemStyle" @click="props.action">
     <div class="d-flex flex-column align-center justify-center">
-      <v-icon size="30" color="#0177DC">mdi-plus</v-icon>
+      <v-icon size="30" color="#0177DC" :icon="mdiPlus"></v-icon>
       <span class="btn-text">
         {{ props.text}}
       </span>
@@ -12,6 +12,7 @@
 <script setup lang="ts">
 
   import {computed} from "vue";
+  import {mdiPlus} from "@mdi/js";
 
   interface AddButton {
     icon : string;

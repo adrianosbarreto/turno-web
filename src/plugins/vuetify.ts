@@ -10,9 +10,24 @@ import 'vuetify/styles'
 import { VBtn } from 'vuetify/components';
 
 import { createVuetify } from 'vuetify'
+import '@mdi/font/css/materialdesignicons.css';
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import {mdiAccount, mdiEmail} from '@mdi/js'
 
 import CustomRoundedTextField from '@/components/CustomRoundedTextField.vue';
 export default createVuetify({
+  icons: {
+    defaultSet: 'mdi',
+    aliases: {
+      ...aliases,
+      account: mdiAccount,
+      email: mdiEmail,
+
+    },
+    sets: {
+      mdi,
+    },
+  },
   components: {
     VBtn,
     CustomRoundedTextField,

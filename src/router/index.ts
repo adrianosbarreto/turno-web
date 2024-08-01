@@ -20,6 +20,7 @@ import MainLayout from "@/layout/MainLayout.vue";
 
 import { isAuthenticated, isAdmin } from "@/services/AuthService";
 import CreateCheck from "@/views/CreateCheck.vue";
+import CheckDetail from "@/views/admin/CheckDetail.vue";
 
 const routes = [
   {
@@ -85,9 +86,15 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
-        path: '/admin',
+        path: '/admin/check-control',
         name: 'CheckControl',
         component: CheckControl,
+        meta: { requiresAuth: true, requiresAdmin: true }
+      },
+      {
+        path: '/admin/checks/:id',
+        name: 'Check Detail',
+        component: CheckDetail,
         meta: { requiresAuth: true, requiresAdmin: true }
       },
       {

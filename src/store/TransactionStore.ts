@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {getTransactionByType} from "@/services/TransactionService";
 import {Transaction} from "@/types/Transaction";
-import {getChecks} from "@/services/CheckService";
+import {getCheckAdmin, getChecks} from "@/services/CheckService";
 
 
 const useTransactionStore = defineStore({
@@ -11,6 +11,7 @@ const useTransactionStore = defineStore({
     expenses: [] as Transaction[],
     incomes: [] as Transaction[],
     checks: [] as Transaction[],
+    pendingChecks: [] as Transaction[],
     month: new Date().getMonth() + 1,
     year: new Date().getFullYear(),
     isLoading: false,
@@ -46,6 +47,14 @@ const useTransactionStore = defineStore({
       await getChecks(account_id, this.month, this.year).then((response)=>{
         this.isLoading = false;
         this.checks = response.data.data;
+      });
+    },
+    async fetchPendingChecks() {
+      this.isLoading = true;
+
+      await getCheckAdmin(this.month, this.year).then((response)=>{
+        this.isLoading = false;
+        this.pendingChecks = response.data.data;
       });
     },
   },

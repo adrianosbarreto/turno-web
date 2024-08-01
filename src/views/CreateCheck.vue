@@ -10,7 +10,7 @@
             <v-row>
               <v-col cols="9">
                 <v-label class="text-field text-uppercase font-weight-bold">
-                  <v-icon size="20" icon="mdi-home"> </v-icon>
+                  <v-icon size="20" :icon="mdiCurrencyUsd"> </v-icon>
                   <p class="pl-3">Amount</p>
                 </v-label>
                 <v-text-field
@@ -30,11 +30,16 @@
                 <p class="text-uppercase text-large align-self-center">USD</p>
               </v-col>
             </v-row>
+            <v-label class="text-field text-wrap pb-4">
+              <p class="">
+                *The money will be deposited in your account once is the check is accepted.
+              </p>
+            </v-label>
 
             <v-row>
               <v-col cols="9">
                 <v-label class="text-field text-uppercase font-weight-bold">
-                  <v-icon size="20" icon="mdi-home"></v-icon>
+                  <v-icon size="20" :icon="mdiCalendarRange"></v-icon>
                   <p class="pl-3">Date</p>
                 </v-label>
                 <v-text-field variant="underlined" readonly class="text-primary text-xl" width="75%">
@@ -46,7 +51,7 @@
             <v-row>
               <v-col>
                 <v-label class="text-field text-uppercase font-weight-bold">
-                  <v-icon size="20" icon="mdi-home"></v-icon>
+                  <v-icon size="20" :icon="mdiStar"></v-icon>
                   <span class="pl-3">Description</span>
                 </v-label>
                 <v-text-field
@@ -73,7 +78,8 @@
                   <div class="d-flex flex-column justify-center align-center">
                     <v-icon
                       color="primary"
-                      icon="mdi-home"
+                      :icon="mdiCloudUploadOutline"
+                      size="50"
                     >
                     </v-icon>
                     <p class="text-uppercase">Upload check picture</p>
@@ -121,6 +127,7 @@
   import {CardResume} from "@/types/CardResume";
   import {useNotificationStore} from "@/store/NotificationStore";
   import {addCheck} from "@/services/CheckService";
+  import {mdiCalendarRange, mdiCloudUploadOutline, mdiCurrencyUsd, mdiStar} from "@mdi/js";
 
   const notificationStore = useNotificationStore();
 

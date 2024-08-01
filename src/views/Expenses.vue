@@ -4,6 +4,40 @@
   </div>
 
   <TransactableList :transactions="dataExpense"/>
+  <v-container v-if="isLoading" class="h-50" >
+    <v-row
+      class="d-flex justify-center align-center"
+    >
+      <v-col
+        cols="auto"
+        class="d-flex flex-column justify-center align-center"
+      >
+        <v-skeleton-loader
+          v-for="n in 10"
+          :key="n"
+          elevation="0"
+          min-width="400"
+          type="list-item-two-line"
+        ></v-skeleton-loader>
+      </v-col>
+    </v-row>
+  </v-container>
+
+  <v-container v-else-if="dataExpense.length === 0 && !isLoading">
+    <v-row
+      class="d-flex justify-center align-center"
+      style="height: 100%;"
+    >
+      <v-col
+        cols="auto"
+        class="d-flex flex-column justify-center align-center"
+      >
+        <p>No data found for the selected period.</p>
+
+      </v-col>
+    </v-row>
+  </v-container>
+
   <TransactionRoundedAddButton :action="() => navigate('/expenses/new')"/>
 </template>
 
@@ -19,7 +53,7 @@ import {computed} from "vue";
 
 const router = useRouter();
 
-const { expenses } = storeToRefs(useTransactionStore());
+const { expenses, isLoading } = storeToRefs(useTransactionStore());
 
 const dataExpense = computed(() => {
   return expenses.value.filter((transaction) => transaction.type === 'expense');
