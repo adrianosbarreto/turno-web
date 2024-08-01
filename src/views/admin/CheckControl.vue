@@ -1,38 +1,45 @@
 <template>
-  <FilterByMonthYear class="filter" type="check-pending"/>
-  <TransactableList v-if="!isLoading" :transactions="tabItemData"/>
-  <v-container v-if="isLoading" class="h-50" >
-    <v-row
-      class="d-flex justify-center align-center"
-    >
-      <v-col
-        cols="auto"
-        class="d-flex flex-column justify-center align-center"
+  <div>
+    <FilterByMonthYear class="filter" type="check-pending"/>
+    <TransactableList
+      v-if="!isLoading"
+      :transactions="tabItemData"
+      :redirect=true
+    />
+    <v-container v-if="isLoading" class="h-50" >
+      <v-row
+        class="d-flex justify-center align-center"
       >
-        <v-skeleton-loader
-          v-for="n in 10"
-          :key="n"
-          elevation="0"
-          min-width="400"
-          type="list-item-two-line"
-        ></v-skeleton-loader>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-container v-else-if="tabItemData.length === 0 && !isLoading">
-    <v-row
-      class="d-flex justify-center align-center"
-      style="height: 100%;"
-    >
-      <v-col
-        cols="auto"
-        class="d-flex flex-column justify-center align-center"
+        <v-col
+          cols="auto"
+          class="d-flex flex-column justify-center align-center"
+        >
+          <v-skeleton-loader
+            v-for="n in 10"
+            :key="n"
+            elevation="0"
+            min-width="400"
+            type="list-item-two-line"
+          ></v-skeleton-loader>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else-if="tabItemData.length === 0 && !isLoading">
+      <v-row
+        class="d-flex justify-center align-center"
+        style="height: 100%;"
       >
-        <p>No data found for the selected period.</p>
+        <v-col
+          cols="auto"
+          class="d-flex flex-column justify-center align-center"
+        >
+          <p>No data found for the selected period.</p>
 
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+
 </template>
 
 <script setup lang="ts">

@@ -7,7 +7,7 @@
     </template>
     <template v-slot:subtitle>
       <span class="transaction-subtitle" :style="subtitleStyle">
-        ${{ cardResumeBalance }}
+        {{ cardResumeBalance }}
       </span>
     </template>
     <template v-slot:append>
@@ -31,10 +31,20 @@ const props = defineProps<{
 }>();
 
 const cardResumeBalance = computed(() => {
+  let value: string;
   if (typeof props.cardResume.amount === "number") {
-    return props.cardResume.amount.toFixed(2);
+    value = props.cardResume.amount.toFixed(2);
   } else {
-    return props.cardResume.amount.value.toFixed(2);
+    value = props.cardResume.amount.value;
+  }
+
+  let numberValue = parseFloat(value)
+  const literal =  numberValue.toFixed(2);
+
+  if(numberValue < 0){
+    return `-$${Math.abs(numberValue).toFixed(2)}`;
+  } else {
+    return `$${literal}`;
   }
 })
 

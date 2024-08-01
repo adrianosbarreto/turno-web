@@ -1,83 +1,87 @@
+//ts-nocheck
 <template>
-  <v-container  fluid >
-    <CardResumeTransaction :card-resume="balanceCard" color="#F1F9FE" color-title="#BDE0FE"
-    />
+  <div>
+    <v-container  fluid >
+      <CardResumeTransaction :card-resume="balanceCard" color="#F1F9FE" color-title="#BDE0FE"
+      />
 
-  </v-container>
-  <v-container fluid class="h-100">
-    <v-row class="h-100">
-      <v-col class="h-100">
-        <v-card elevation="0" class="h-100">
-          <v-form @submit.prevent="insertPurchase" class="h-100 pa-4 d-flex flex-column justify-space-evenly">
-            <div>
-              <v-row>
-                <v-col cols="9">
-                  <v-label class="text-field text-uppercase font-weight-bold">
-                    <v-icon size="20" icon="mdi-home"> </v-icon>
-                    <p class="pl-3">Amount</p>
-                  </v-label>
-                  <v-text-field
-                    v-model="stateForm.amount"
-                    required
-                    variant="underlined"
-                    class="text-primary"
-                    @input="onValueChange"
-                    :error-messages="vuelidate.amount.$errors?.map((e) => e.$message)"
-                  >
-                    <template v-slot:prepend-inner>
-                      <span>$</span>
-                    </template>
-                  </v-text-field>
-                </v-col>
-                <v-col cols="3" align-self="center">
-                  <p class="text-uppercase text-large align-self-center">USD</p>
-                </v-col>
-              </v-row>
+    </v-container>
+    <v-container fluid class="h-100">
+      <v-row class="h-100">
+        <v-col class="h-100">
+          <v-card elevation="0" class="h-100">
+            <v-form @submit.prevent="insertPurchase" class="h-100 pa-4 d-flex flex-column justify-space-evenly">
+              <div>
+                <v-row>
+                  <v-col cols="9">
+                    <v-label class="text-field text-uppercase font-weight-bold">
+                      <v-icon size="30" :icon="mdiCash100"> </v-icon>
+                      <p class="pl-3">Amount</p>
+                    </v-label>
+                    <v-text-field
+                      v-model="stateForm.amount"
+                      required
+                      variant="underlined"
+                      class="text-primary"
+                      :error-messages="vuelidate.amount.$errors?.map((e) => e.$message)"
+                      @input="onValueChange"
+                    >
+                      <template v-slot:prepend-inner>
+                        <span class="text-field">$</span>
+                      </template>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="3" align-self="center">
+                    <p class="text-uppercase text-large align-self-center">USD</p>
+                  </v-col>
+                </v-row>
 
-              <v-row>
-                <v-col cols="9">
-                  <v-label class="text-field text-uppercase font-weight-bold">
-                    <v-icon size="20" icon="mdi-home"></v-icon>
-                    <p class="pl-3">Date</p>
-                  </v-label>
-                  <v-text-field variant="underlined" readonly class="text-primary text-xl" width="75%">
-                    {{ formattedDate }}
-                  </v-text-field>
-                </v-col>
-              </v-row>
+                <v-row>
+                  <v-col cols="9">
+                    <v-label class="text-field text-uppercase font-weight-bold">
+                      <v-icon size="30" :icon="mdiCalendarRange"></v-icon>
+                      <p class="pl-3">Date</p>
+                    </v-label>
+                    <v-text-field variant="underlined" readonly class="text-primary text-xl" width="75%">
+                      {{ formattedDate }}
+                    </v-text-field>
+                  </v-col>
+                </v-row>
 
-              <v-row>
-                <v-col>
-                  <v-label class="text-field text-uppercase font-weight-bold">
-                    <v-icon size="20" icon="mdi-home"></v-icon>
-                    <span class="pl-3">Description</span>
-                  </v-label>
-                  <v-text-field
-                    required
-                    v-model="stateForm.description"
-                    variant="underlined"
-                    class="text-primary"
-                    :error-messages="vuelidate.description.$errors?.map((e) => e.$message)"
-                  ></v-text-field>
-                </v-col>
+                <v-row>
+                  <v-col>
+                    <v-label class="text-field text-uppercase font-weight-bold">
+                      <v-icon size="30" :icon="mdiStar"></v-icon>
+                      <span class="pl-3">Description</span>
+                    </v-label>
+                    <v-text-field
+                      required
+                      v-model="stateForm.description"
+                      variant="underlined"
+                      class="text-primary"
+                      :error-messages="vuelidate.description.$errors?.map((e) => e.$message)"
+                    ></v-text-field>
+                  </v-col>
 
-              </v-row>
-            </div>
+                </v-row>
+              </div>
 
-            <div class="d-flex">
-              <v-btn
-                type="submit"
-                class="purchase me-4 w-100"
-              >
-                Add Purchase
-              </v-btn>
-            </div>
-          </v-form>
+              <div class="d-flex">
+                <v-btn
+                  type="submit"
+                  class="purchase me-4 w-100"
+                >
+                  Add Purchase
+                </v-btn>
+              </div>
+            </v-form>
 
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+
+  </div>
 
 </template>
 
@@ -92,8 +96,10 @@
   import {CardResume} from "@/types/CardResume";
   import {storeToRefs} from "pinia";
   import {useAccountStore} from "@/store/AccountStore";
+  import {mdiCalendarRange, mdiCash100, mdiStar} from "@mdi/js";
 
-  const {balance} = storeToRefs(useAccountStore());
+
+  const { balance } = storeToRefs(useAccountStore());
 
   const balanceCard : CardResume = {
     "amount": balance,
@@ -110,6 +116,7 @@
   const stateForm = reactive({
     ...initialState,
   })
+
 
   const  rules = computed(() => {
     return {
@@ -134,6 +141,7 @@
   }
 
   const vuelidate = useVuelidate(rules, stateForm);
+
 
   async function insertPurchase(){
     const validated = await vuelidate.value.$validate();

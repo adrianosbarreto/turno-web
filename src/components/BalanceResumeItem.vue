@@ -21,11 +21,8 @@
 import {computed, defineProps, onMounted} from 'vue';
 import {CardResume} from "@/types/CardResume";
 import {useAccountStore} from "@/store/AccountStore";
-import {storeToRefs} from "pinia";
 
 const accountStore = useAccountStore();
-
-const { isLoading, balance } = storeToRefs(accountStore);
 
 const props = defineProps<{
   cardResume: CardResume;

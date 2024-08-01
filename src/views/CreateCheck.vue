@@ -1,3 +1,4 @@
+//ts-nocheck
 <template>
   <v-container>
     <CardResumeTransaction :card-resume="balanceCard" color="#F1F9FE" color-title="#BDE0FE"/>
@@ -10,7 +11,7 @@
             <v-row>
               <v-col cols="9">
                 <v-label class="text-field text-uppercase font-weight-bold">
-                  <v-icon size="20" :icon="mdiCurrencyUsd"> </v-icon>
+                  <v-icon size="30" :icon="mdiCash100"> </v-icon>
                   <p class="pl-3">Amount</p>
                 </v-label>
                 <v-text-field
@@ -70,7 +71,7 @@
                 variant="solo"
                 width="30"
                 v-model="state.file"
-                :error-messages="vuelidate.file.$errors.map((e) => e.$message)"
+                :error-messages="vuelidate.file.$errors.map((e) => e.$message) || ''"
                 :class="`check w-100 ${!state.file?'py-12': ''}`"
                 @change="onFileChange"
               >
@@ -127,7 +128,7 @@
   import {CardResume} from "@/types/CardResume";
   import {useNotificationStore} from "@/store/NotificationStore";
   import {addCheck} from "@/services/CheckService";
-  import {mdiCalendarRange, mdiCloudUploadOutline, mdiCurrencyUsd, mdiStar} from "@mdi/js";
+  import {mdiCalendarRange, mdiCash100, mdiCloudUploadOutline, mdiStar} from "@mdi/js";
 
   const notificationStore = useNotificationStore();
 
@@ -227,7 +228,7 @@
     const reader = new FileReader();
 
     reader.onload = () => {
-      imageSrc.value = reader.result;
+      imageSrc.value = typeof reader.result == "string" ? reader.result : '';
     };
 
     reader.readAsDataURL(file);

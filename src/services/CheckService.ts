@@ -11,7 +11,12 @@ export function addCheck(account_id : number, check: any): Promise<any>{
 }
 
 export function evaluateCheck(check_id : number, status: string): Promise<any>{
-  return axios.put(`/checks/${check_id}`, {status});
+  if(status === 'approve'){
+    return axios.post(`admin/checks/approve/${check_id}`);
+  }
+
+  return axios.post(`admin/checks/reject/${check_id}`);
+
 }
 
 export function getCheckAdmin(month: number, year: number): Promise<any>{
