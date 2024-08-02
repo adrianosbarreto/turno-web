@@ -1,23 +1,13 @@
-import {useRouter} from "vue-router";
+import axiosCommon from "@/plugins/axios";
 
-export function isAuthenticated() {
+export function isAuthenticated() : boolean {
   return !!localStorage.getItem('access_token');
 }
 
-export function isAdmin() {
+export function isAdmin(): boolean {
   return localStorage.getItem('user_type') === 'admin';
 }
 
-export const redirectToLogin = () => {
-  const router = useRouter();
-  console.log('Attempting to redirect to login');
-  if (router) {
-    router.push('/login').catch(err => console.error('Redirect failed:', err));
-  } else {
-    console.error('Router is not available.');
-  }
-
-  console.log('Redirecting to login');
-
-  router.push('/login');
-};
+export const logout = () => {
+  return axiosCommon.post('/logout');
+}

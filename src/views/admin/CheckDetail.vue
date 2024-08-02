@@ -3,7 +3,7 @@
     <div v-if="loading" class="text-center pt-16">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </div>
-    <v-card v-else class="ma-4 pt-10 overflow-y-scroll" elevation="0">
+    <v-card v-else class="ma-4 pt-10" elevation="0">
       <div class="flex-column justify-space-between">
         <v-row class="pa-4">
           <v-col cols="12" class="my-4">
@@ -138,7 +138,7 @@ interface Check {
 const check: Ref<Check> = ref({
   id: 0,
   amount: 0.0,
-  picture: 'https://turno-checks.s3.amazonaws.com/image_0610182024080166ab26cadeebc.png',
+  picture: '',
   username: '',
   email: '',
   account: ''

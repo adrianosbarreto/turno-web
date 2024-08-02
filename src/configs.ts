@@ -27,6 +27,11 @@ const configs = {
       route: '/expenses'
     },
     {
+      icon: mdiCashCheck,
+      text: 'check control',
+      route: '/admin/check-control'
+    },
+    {
       icon: mdiCash100,
       text: 'checks',
       route: '/checks'
@@ -51,11 +56,6 @@ const configs = {
       text: 'help',
       route: '/help'
     },
-    {
-      icon: mdiCashCheck,
-      text: 'check control',
-      route: '/admin/check-control'
-    }
   ],
 
   headerConfig: {

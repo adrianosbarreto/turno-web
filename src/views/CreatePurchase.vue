@@ -70,6 +70,7 @@
                 <v-btn
                   type="submit"
                   class="purchase me-4 w-100"
+                  :loading="isLoading"
                 >
                   Add Purchase
                 </v-btn>
@@ -88,7 +89,7 @@
 <script setup lang="ts">
   import {required} from "@vuelidate/validators";
   import {useVuelidate} from "@vuelidate/core";
-  import {computed, reactive} from "vue";
+  import {computed, reactive, ref} from "vue";
   import {getMonthDayYear} from "@/util/DateFormat";
   import {useNotificationStore} from "@/store/NotificationStore";
   import {createPurchase} from "@/services/TransactionService";
@@ -97,9 +98,13 @@
   import {storeToRefs} from "pinia";
   import {useAccountStore} from "@/store/AccountStore";
   import {mdiCalendarRange, mdiCash100, mdiStar} from "@mdi/js";
+  import {useRouter} from "vue-router";
 
+  const useRoute = useRouter();
 
   const { balance } = storeToRefs(useAccountStore());
+
+  const isLoading = ref(false);
 
   const balanceCard : CardResume = {
     "amount": balance,
@@ -116,7 +121,6 @@
   const stateForm = reactive({
     ...initialState,
   })
-
 
   const  rules = computed(() => {
     return {
@@ -150,11 +154,25 @@
       amount: stateForm.amount,
       description: stateForm.description,
       type: 'expense',
-      account_id: 4
+      account_id: useAccountStore().account_id
     }
 
     if(validated){
-      const response = await createPurchase(transaction);
+
+      isLoading.value = true;
+
+      const response = await createPurchase(transaction).catch((error) =>
+        {
+          console.log(error);
+          notificationStore.showNotification(
+            `${error.response.data.message}`,
+            'success',
+            2000
+          )
+
+          isLoading.value = false;
+        }
+      );
 
       if(response.status === 200){
         notificationStore.showNotification(
@@ -163,7 +181,9 @@
           2000
         );
 
-        // stateForm.value = initialState;
+        isLoading.value = false;
+
+        useRoute.back();
       }
       else{
         console.log(response.message)
@@ -172,6 +192,8 @@
           'error',
           2000
         );
+
+        isLoading.value = false;
       }
     }
   }

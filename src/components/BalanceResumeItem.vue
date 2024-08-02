@@ -47,7 +47,9 @@ const cardResumeBalance = computed(() => {
 })
 
 onMounted(async () => {
-  await accountStore.fetchBalance(4);
+  await accountStore.fetchBalance(
+    parseInt(localStorage.getItem('account_id') || '0' ) || accountStore.account_id
+  );
 });
 
 </script>

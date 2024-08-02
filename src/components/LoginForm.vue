@@ -60,8 +60,9 @@
   import {login} from "@/services/AccountService";
   import { useRouter } from 'vue-router';
   import axios from "@/plugins/axios";
-  import axiosCommon from "@/plugins/axios";
   import {useAccountStore} from "@/store/AccountStore";
+
+  const accountStore = useAccountStore();
 
   const router = useRouter();
 
@@ -107,14 +108,16 @@
 
         localStorage.setItem('access_token', response.data.data.access_token);
         localStorage.setItem('user_type', response.data.data.user_type);
+        localStorage.setItem('account_id', response.data.data.account_id);
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.access_token}`;
 
-        console.log('Token configurado no Axios:', axiosCommon.defaults.headers.common['Authorization']);
+        //console.log('Token configurado no Axios:', axiosCommon.defaults.headers.common['Authorization']);
         useAccountStore().setAccountId(response.data.data.account_id);
 
         await router.push('/home');
 
-        // Object.assign(state, initialState);
+        accountStore.setAccountId(response.data.data.account_id);
+
       } else {
         notificationStore.showNotification(
           `${response.data.message}`,

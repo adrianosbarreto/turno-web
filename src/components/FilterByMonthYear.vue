@@ -17,6 +17,7 @@
   import {storeToRefs} from "pinia";
   import {getLast12Months} from "@/util/DateFormat";
   import useTransactionStore from "@/store/TransactionStore";
+  import {useAccountStore} from "@/store/AccountStore";
   import {mdiChevronDown} from "@mdi/js";
 
 
@@ -27,6 +28,8 @@
   }
 
   const transactionStore = useTransactionStore();
+
+  const accountStore = useAccountStore();
 
   const { month, year } = storeToRefs(transactionStore);
 
@@ -47,13 +50,13 @@
         year.value = newItem.year;
 
         if(props.type === 'expense'){
-          transactionStore.fetchExpenses(4, 'expense');
+          transactionStore.fetchExpenses(accountStore.account_id, 'expense');
         } else if(props.type === 'income'){
-          transactionStore.fetchIncomes(4, 'income');
+          transactionStore.fetchIncomes(accountStore.account_id, 'income');
         } else if(props.type === 'all'){
-          transactionStore.fetchTransactions(4);
+          transactionStore.fetchTransactions(accountStore.account_id);
         } else if(props.type == 'check'){
-          transactionStore.fetchChecks(4);
+          transactionStore.fetchChecks(accountStore.account_id);
         } else if(props.type == 'check-pending'){
           transactionStore.fetchPendingChecks();
         }

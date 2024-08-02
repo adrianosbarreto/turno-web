@@ -13,7 +13,5 @@ export function login(data : any): Promise<any> {
   return axios.post(`/login`, data);
 }
 
-export function logout(): Promise<any> {
-  return axios.post(`/logout`);
-}
+
 

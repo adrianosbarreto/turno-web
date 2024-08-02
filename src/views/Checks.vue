@@ -79,6 +79,7 @@ import {useRouter} from "vue-router";
 import FilterByMonthYear from "@/components/FilterByMonthYear.vue";
 import {storeToRefs} from "pinia";
 import useTransactionStore from "@/store/TransactionStore";
+import {useAccountStore} from "@/store/AccountStore";
 
 
 const transactionStore = useTransactionStore();
@@ -97,7 +98,7 @@ const tabItemData = ref([
 const tab = ref('pending');
 
 onMounted(async () => {
-  await transactionStore.fetchChecks(4);
+  await transactionStore.fetchChecks(useAccountStore().account_id);
 });
 
 watch(checks, (newValue) => {
@@ -114,21 +115,7 @@ function fillTabItemData(apiResponse: any) {
       item.data = apiResponse[key];
     }
   });
-
-  console.log(tabItemData.value);
 }
-
-
-
-// async function getCheckDataForTabs() {
-//   return transactionStore.fetchChecks().then((response) => {
-//
-//     tabItemData.value.forEach((tab) => {
-//       tab.data = response.data.data[tab.type] ;
-//     });
-//
-//   })
-// }
 
 const navigate = (route: string) : void => {
   router.push(route);

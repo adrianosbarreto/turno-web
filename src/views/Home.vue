@@ -83,6 +83,7 @@ import {onMounted} from "vue";
 import useTransactionStore from "@/store/TransactionStore";
 import { storeToRefs } from "pinia";
 import { CardResume } from "@/types/CardResume";
+import {useAccountStore} from "@/store/AccountStore";
 
 const router = useRouter();
 
@@ -95,7 +96,7 @@ onMounted(async () => {
 });
 
 async function getTransactions() {
-  return transactionStore.fetchTransactions(4)
+  return transactionStore.fetchTransactions(useAccountStore().account_id)
 }
 
 const balance : CardResume = {

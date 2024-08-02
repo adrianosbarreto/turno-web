@@ -104,6 +104,7 @@
                 type="submit"
                 class="purchase me-4 w-100"
                 @click="vuelidate.$validate"
+                :loading="isLoading"
               >
                 Deposit Check
               </v-btn>
@@ -129,10 +130,15 @@
   import {useNotificationStore} from "@/store/NotificationStore";
   import {addCheck} from "@/services/CheckService";
   import {mdiCalendarRange, mdiCash100, mdiCloudUploadOutline, mdiStar} from "@mdi/js";
+  import {useRouter} from "vue-router";
+
+  const useRoute = useRouter();
 
   const notificationStore = useNotificationStore();
 
   const {balance} = storeToRefs(useAccountStore());
+
+  const isLoading = ref(false);
 
   const balanceCard : CardResume = {
     "amount": balance,
@@ -188,6 +194,9 @@
     const validated = await vuelidate.value.$validate();
 
     if(validated){
+
+      isLoading.value = true;
+
       const transaction = {
         amount: state.amount,
         description: state.description,
@@ -195,7 +204,7 @@
         status: 'pending'
       }
 
-      const response = await addCheck(4, transaction);
+      const response = await addCheck(useAccountStore().account_id, transaction);
 
       if(response.status === 200){
         notificationStore.showNotification(
@@ -204,15 +213,19 @@
           2000
         );
 
-        // stateForm.value = initialState;
+        isLoading.value = false
+
+        useRoute.back();
+
       }
       else{
-        console.log(response.message)
         notificationStore.showNotification(
           `${response.message}`,
           'error',
           2000
         );
+
+        isLoading.value = false
       }
     }
   }

@@ -15,7 +15,8 @@ import Header from "@/components/UnauthenticatedHeader.vue";
 import FormLogin from "@/components/LoginForm.vue";
 import {isAuthenticated} from "@/services/AuthService";
 import {useRouter} from "vue-router";
-  import {onMounted} from "vue";
+import {onMounted} from "vue";
+
 
 const router = useRouter();
 
@@ -23,6 +24,7 @@ onMounted(() => {
   if (isAuthenticated()) {
     router.push({ name: 'Home' });
   }
+
 });
 
 </script>

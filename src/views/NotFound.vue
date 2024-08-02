@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="not-found">
+    <div class="not-found pa-4">
       <h1>Oops!</h1>
       <p>The page you are looking for was not found.</p>
       <p>You will be redirected to the home page in <span id="countdown">5</span> seconds.</p>

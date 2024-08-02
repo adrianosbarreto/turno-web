@@ -49,15 +49,12 @@ import TransactionRoundedAddButton from "@/components/TransactionRoundedAddButto
 import {useRouter} from "vue-router";
 import useTransactionStore from "@/store/TransactionStore";
 import {storeToRefs} from "pinia";
-import {computed} from "vue";
 
 const router = useRouter();
 
 const { expenses, isLoading } = storeToRefs(useTransactionStore());
 
-const dataExpense = computed(() => {
-  return expenses.value.filter((transaction) => transaction.type === 'expense');
-});
+const dataExpense = expenses;
 
 function navigate(route: string) : void {
   router.push(route);

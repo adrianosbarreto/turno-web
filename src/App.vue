@@ -28,17 +28,29 @@
   }
 
   .main-content{
-    position: relative;
-    min-height: 90vh;
-    max-height: 90vh;
-    border-radius: 2rem;
-    border: #3f51b5 1px solid;
-    margin: 2rem;
-    overflow: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    @media (min-width: 481px) {
+      position: relative;
+      min-height: 90vh;
+      max-height: 90vh;
+      border-radius: 2rem;
+      border: #3f51b5 1px solid;
+      margin: 2rem;
+
+      overflow: hidden;
+    }
+
 
     @media (max-width: 480px) {
       height: 100vh;
       border: none;
+      margin: 0;
+      border-radius: 0;
     }
   }
 

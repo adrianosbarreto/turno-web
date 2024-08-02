@@ -24,6 +24,12 @@ import CheckDetail from "@/views/admin/CheckDetail.vue";
 
 const routes = [
   {
+    path: '/',
+    redirect: () => {
+      return  isAuthenticated() ? '/home' : '/login';
+    },
+  },
+  {
     path: '/login',
     component: AuthLayout,
     children: [

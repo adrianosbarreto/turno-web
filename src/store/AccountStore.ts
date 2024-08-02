@@ -6,11 +6,14 @@ export const useAccountStore = defineStore({
     state: () => ({
         balance: 0,
         isLoading: false,
-        account_id: null as number | null,
+        account_id: parseInt(localStorage.getItem('account_id') || '0') || 0,
     }),
     actions: {
-        async fetchBalance(account_id : number) {
+        async fetchBalance(account_id: number) {
+            if(account_id === 0) return;
+
             this.isLoading = true;
+
             await getBalance(account_id).then((response)=> {
                 this.balance = response.data.data?.balance || 0;
                 this.isLoading = false;
