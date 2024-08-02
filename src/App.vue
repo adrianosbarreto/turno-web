@@ -28,13 +28,13 @@
   }
 
   .main-content{
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+
 
     @media (min-width: 481px) {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
       position: relative;
       min-height: 90vh;
       max-height: 90vh;
