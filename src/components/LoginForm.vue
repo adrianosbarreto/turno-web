@@ -14,6 +14,7 @@
             <CustomRoundedTextField
               v-model="state.password"
               label="password"
+              type="password"
               required
               :message="v$.password.$errors?.map((e) => e.$message)"
             ></CustomRoundedTextField>
